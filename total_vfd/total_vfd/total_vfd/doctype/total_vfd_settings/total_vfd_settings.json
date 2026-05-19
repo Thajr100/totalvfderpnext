@@ -1,0 +1,129 @@
+{
+ "actions": [],
+ "creation": "2026-05-18 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "validation_section",
+  "validation_server_url",
+  "validation_api_key",
+  "site_id",
+  "column_break_val",
+  "test_connection_html",
+  "license_warning",
+  "setup_complete",
+  "show_setup_welcome",
+  "license_json",
+  "help_section",
+  "help_html"
+ ],
+ "fields": [
+  {
+   "fieldname": "validation_section",
+   "fieldtype": "Section Break",
+   "label": "Step 1 — Link to your vendor",
+   "collapsible": 0
+  },
+  {
+   "fieldname": "validation_server_url",
+   "fieldtype": "Data",
+   "label": "License server address",
+   "description": "Web address from your integrator (starts with https://)"
+  },
+  {
+   "fieldname": "validation_api_key",
+   "fieldtype": "Password",
+   "label": "License password",
+   "description": "Secret password from your integrator (not your ERP login)"
+  },
+  {
+   "fieldname": "site_id",
+   "fieldtype": "Data",
+   "label": "Site ID",
+   "read_only": 1,
+   "hidden": 1
+  },
+  {
+   "fieldname": "column_break_val",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "test_connection_html",
+   "fieldtype": "HTML",
+   "label": " ",
+   "options": "<p class=\"text-muted\">Save, then use <b>Test link to vendor</b> on the menu bar.</p>"
+  },
+  {
+   "fieldname": "license_warning",
+   "fieldtype": "Small Text",
+   "label": "License Warning",
+   "read_only": 1,
+   "hidden": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "setup_complete",
+   "fieldtype": "Check",
+   "label": "Setup Complete",
+   "hidden": 1
+  },
+  {
+   "default": "1",
+   "fieldname": "show_setup_welcome",
+   "fieldtype": "Check",
+   "label": "Show Setup Welcome",
+   "hidden": 1
+  },
+  {
+   "fieldname": "license_json",
+   "fieldtype": "Code",
+   "label": "License data (server)",
+   "options": "JSON",
+   "read_only": 1,
+   "hidden": 1
+  },
+  {
+   "fieldname": "help_section",
+   "fieldtype": "Section Break",
+   "label": "Setup guide"
+  },
+  {
+   "fieldname": "help_html",
+   "fieldtype": "HTML",
+   "label": " ",
+   "options": "<p class=\"text-muted\">Loading setup guide…</p>"
+  }
+ ],
+ "issingle": 1,
+ "links": [],
+ "modified": "2026-05-18 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Total VFD",
+ "name": "Total VFD Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "read": 1,
+   "role": "Total VFD Manager",
+   "write": 1
+  },
+  {
+   "read": 1,
+   "role": "Total VFD User"
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

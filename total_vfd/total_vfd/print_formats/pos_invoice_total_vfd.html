@@ -1,0 +1,84 @@
+<div class="print-format">
+	<div class="row section-break">
+		<div class="col-xs-8">
+			<h2>{{ _("POS Invoice") }}</h2>
+			<p><b>{{ doc.name }}</b></p>
+			{% if doc.pos_invoice %}
+			<p>{{ _("POS Reference") }}: {{ doc.pos_invoice }}</p>
+			{% endif %}
+			<p>{{ _("Date") }}: {{ doc.get_formatted("posting_date") }}</p>
+			{% if doc.customer_name %}
+			<p>{{ _("Customer") }}: {{ doc.customer_name }}</p>
+			{% endif %}
+		</div>
+		<div class="col-xs-4 text-right">
+			{% if letter_head %}
+			{{ letter_head }}
+			{% endif %}
+		</div>
+	</div>
+
+	<table class="table table-bordered table-condensed" style="margin-top: 16px;">
+		<thead>
+			<tr>
+				<th>{{ _("Item") }}</th>
+				<th class="text-right">{{ _("Qty") }}</th>
+				<th class="text-right">{{ _("Amount") }}</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for item in doc.items %}
+			<tr>
+				<td>{{ item.item_name or item.item_code }}</td>
+				<td class="text-right">{{ item.get_formatted("qty") }}</td>
+				<td class="text-right">{{ item.get_formatted("amount") }}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	<div class="row">
+		<div class="col-xs-6 col-xs-offset-6">
+			<table class="table table-condensed">
+				<tr>
+					<td class="text-right"><b>{{ _("Grand Total") }}</b></td>
+					<td class="text-right"><b>{{ doc.get_formatted("grand_total") }}</b></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+	{% if doc.totalvfd_fiscalise and doc.totalvfd_fiscal_status == "Success" %}
+	<div style="margin-top: 24px; padding-top: 12px; border-top: 2px solid #333;">
+		<h4 style="margin-bottom: 12px;">{{ _("Fiscal Receipt (Total VFD)") }}</h4>
+		<div style="display: table; width: 100%;">
+			<div style="display: table-cell; vertical-align: top; width: 65%;">
+				{% if doc.totalvfd_rctvnum %}
+				<p><b>{{ _("Fiscal Receipt Number") }}:</b> {{ doc.totalvfd_rctvnum }}</p>
+				{% endif %}
+				{% if doc.totalvfd_local_time %}
+				<p><b>{{ _("Fiscal Date & Time") }}:</b> {{ doc.totalvfd_local_time }}</p>
+				{% endif %}
+				{% if doc.totalvfd_rctnum %}
+				<p><b>{{ _("RCT") }}:</b> {{ doc.totalvfd_rctnum }}
+				{% if doc.totalvfd_gc %} &nbsp; <b>{{ _("GC") }}:</b> {{ doc.totalvfd_gc }}{% endif %}
+				{% if doc.totalvfd_z_number %} &nbsp; <b>{{ _("Z") }}:</b> {{ doc.totalvfd_z_number }}{% endif %}
+				</p>
+				{% endif %}
+				{% if doc.totalvfd_verification_link %}
+				<p><b>{{ _("Verification") }}:</b><br/>
+					<span style="font-size: 11px; word-break: break-all;">{{ doc.totalvfd_verification_link }}</span>
+				</p>
+				{% endif %}
+			</div>
+			{% if doc.totalvfd_qr_code %}
+			<div style="display: table-cell; vertical-align: top; text-align: right; width: 35%;">
+				<img src="{{ frappe.utils.get_url(doc.totalvfd_qr_code) }}"
+					alt="{{ _('Fiscal QR Code') }}"
+					style="max-width: 150px; max-height: 150px;" />
+			</div>
+			{% endif %}
+		</div>
+	</div>
+	{% endif %}
+</div>

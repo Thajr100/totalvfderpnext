@@ -1,0 +1,85 @@
+{
+ "actions": [],
+ "autoname": "hash",
+ "creation": "2026-05-18 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "action",
+  "license_word",
+  "expiry_date",
+  "renewal",
+  "user",
+  "site_id",
+  "company"
+ ],
+ "fields": [
+  {
+   "fieldname": "action",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Action",
+   "options": "activated\nrenewed\nrevoked",
+   "reqd": 1
+  },
+  {
+   "fieldname": "license_word",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "License Word"
+  },
+  {
+   "fieldname": "expiry_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Expiry Date"
+  },
+  {
+   "default": "0",
+   "fieldname": "renewal",
+   "fieldtype": "Check",
+   "label": "Renewal"
+  },
+  {
+   "fieldname": "user",
+   "fieldtype": "Link",
+   "label": "User",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "site_id",
+   "fieldtype": "Data",
+   "label": "Site ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Company",
+   "options": "Company",
+   "read_only": 1
+  }
+ ],
+ "links": [],
+ "modified": "2026-05-18 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Total VFD",
+ "name": "Total VFD License Activation Log",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "read": 1,
+   "role": "System Manager"
+  },
+  {
+   "read": 1,
+   "role": "Total VFD Manager"
+  }
+ ],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

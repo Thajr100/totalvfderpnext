@@ -1,0 +1,157 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "creation": "2026-05-18 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "license_section",
+  "license_word",
+  "activation_phrase",
+  "status",
+  "site_id",
+  "column_break_1",
+  "activation_date",
+  "expiry_date",
+  "days_until_expiry",
+  "is_expiring_soon",
+  "license_key_hash",
+  "integrity_seal",
+  "pending_vendor_activation_code",
+  "messages_section",
+  "status_message",
+  "warning_message"
+ ],
+ "fields": [
+  {
+   "fieldname": "license_section",
+   "fieldtype": "Section Break",
+   "label": "Module License"
+  },
+  {
+   "fieldname": "license_word",
+   "fieldtype": "Data",
+   "label": "License Word (tell vendor)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "activation_phrase",
+   "fieldtype": "Data",
+   "label": "Activation Phrase",
+   "read_only": 1
+  },
+  {
+   "default": "inactive",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "inactive\nawaiting_key\nactive\nexpired\nrevoked\ninvalid",
+   "read_only": 1
+  },
+  {
+   "fieldname": "site_id",
+   "fieldtype": "Data",
+   "label": "Site ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "activation_date",
+   "fieldtype": "Datetime",
+   "label": "Activation Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "expiry_date",
+   "fieldtype": "Date",
+   "label": "Expiry Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "days_until_expiry",
+   "fieldtype": "Int",
+   "label": "Days Until Expiry",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "is_expiring_soon",
+   "fieldtype": "Check",
+   "label": "Expiring Soon",
+   "read_only": 1
+  },
+  {
+   "fieldname": "license_key_hash",
+   "fieldtype": "Password",
+   "hidden": 1,
+   "label": "License Key Hash",
+   "read_only": 1
+  },
+  {
+   "fieldname": "integrity_seal",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Integrity Seal",
+   "read_only": 1
+  },
+  {
+   "fieldname": "pending_vendor_activation_code",
+   "fieldtype": "Small Text",
+   "label": "Pending Vendor Activation Code",
+   "read_only": 1
+  },
+  {
+   "fieldname": "messages_section",
+   "fieldtype": "Section Break",
+   "label": "Status"
+  },
+  {
+   "fieldname": "status_message",
+   "fieldtype": "Small Text",
+   "label": "Status Message",
+   "read_only": 1
+  },
+  {
+   "fieldname": "warning_message",
+   "fieldtype": "Small Text",
+   "label": "Warning",
+   "read_only": 1
+  }
+ ],
+ "issingle": 1,
+ "links": [],
+ "modified": "2026-05-18 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Total VFD",
+ "name": "Total VFD License",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "read": 1,
+   "role": "Total VFD Manager",
+   "write": 1
+  },
+  {
+   "read": 1,
+   "role": "Total VFD User"
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

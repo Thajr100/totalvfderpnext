@@ -1,0 +1,5 @@
+total_vfd.patches.v1_0.assign_license_word #2026-05-18
+total_vfd.patches.v1_0.ensure_print_formats #2026-05-18
+total_vfd.patches.v1_0.post_fill_gaps #2026-05-18
+total_vfd.patches.v1_0.license_site_integration #2026-05-18
+total_vfd.patches.v1_0.company_license_per_company #2026-05-18

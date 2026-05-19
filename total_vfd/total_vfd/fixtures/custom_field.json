@@ -1,0 +1,499 @@
+[
+ {
+  "dt": "Company",
+  "fieldname": "totalvfd_tab",
+  "fieldtype": "Tab Break",
+  "insert_after": "default_settings",
+  "label": "Total VFD",
+  "module": "Total VFD"
+ },
+ {
+  "dt": "Company",
+  "fieldname": "totalvfd_license_section",
+  "fieldtype": "Section Break",
+  "insert_after": "totalvfd_tab",
+  "label": "Module license",
+  "module": "Total VFD",
+  "description": "Each company has its own Site ID and license. Manage activation from Total VFD Settings or the buttons below."
+ },
+ {
+  "dt": "Company",
+  "fieldname": "totalvfd_license_site_id",
+  "fieldtype": "Data",
+  "insert_after": "totalvfd_license_section",
+  "label": "Vendor reference number",
+  "module": "Total VFD",
+  "read_only": 1
+ },
+ {
+  "dt": "Company",
+  "fieldname": "totalvfd_license_word",
+  "fieldtype": "Data",
+  "insert_after": "totalvfd_license_site_id",
+  "label": "Your code word",
+  "module": "Total VFD",
+  "read_only": 1
+ },
+ {
+  "dt": "Company",
+  "fieldname": "totalvfd_license_status",
+  "fieldtype": "Data",
+  "insert_after": "totalvfd_license_word",
+  "label": "License status",
+  "module": "Total VFD",
+  "read_only": 1
+ },
+ {
+  "dt": "Company",
+  "fieldname": "totalvfd_license_json",
+  "fieldtype": "Code",
+  "insert_after": "totalvfd_license_status",
+  "label": "License data",
+  "module": "Total VFD",
+  "options": "JSON",
+  "read_only": 1,
+  "hidden": 1
+ },
+ {
+  "dt": "Company",
+  "fieldname": "totalvfd_bearer_token",
+  "fieldtype": "Password",
+  "insert_after": "totalvfd_tab",
+  "label": "Portal login token",
+  "module": "Total VFD"
+ },
+ {
+  "dt": "Company",
+  "fieldname": "totalvfd_active_business",
+  "fieldtype": "Data",
+  "insert_after": "totalvfd_bearer_token",
+  "label": "Business ID (from Total VFD portal)",
+  "module": "Total VFD"
+ },
+ {
+  "dt": "Company",
+  "fieldname": "totalvfd_serial",
+  "fieldtype": "Data",
+  "insert_after": "totalvfd_active_business",
+  "label": "Device serial number",
+  "module": "Total VFD"
+ },
+ {
+  "dt": "Company",
+  "fieldname": "totalvfd_environment",
+  "fieldtype": "Select",
+  "insert_after": "totalvfd_serial",
+  "label": "Live or test mode",
+  "module": "Total VFD",
+  "options": "sandbox\nproduction",
+  "description": "Use test until your trial invoice works, then switch to production for go-live.",
+  "default": "sandbox"
+ },
+ {
+  "dt": "Company",
+  "fieldname": "totalvfd_vat_mapping_mode",
+  "fieldtype": "Select",
+  "insert_after": "totalvfd_environment",
+  "label": "VAT Mapping Mode",
+  "module": "Total VFD",
+  "options": "auto\nmanual",
+  "default": "auto"
+ },
+ {
+  "dt": "Company",
+  "fieldname": "totalvfd_default_vat_group",
+  "fieldtype": "Data",
+  "insert_after": "totalvfd_vat_mapping_mode",
+  "label": "Default VAT Group",
+  "module": "Total VFD",
+  "default": "A"
+ },
+ {
+  "dt": "Company",
+  "fieldname": "totalvfd_use_default_vat_group_all",
+  "fieldtype": "Check",
+  "insert_after": "totalvfd_default_vat_group",
+  "label": "Use Default VAT Group For All Lines",
+  "module": "Total VFD",
+  "default": "0"
+ },
+ {
+  "dt": "Company",
+  "fieldname": "totalvfd_fiscalise_sales_by_default",
+  "fieldtype": "Check",
+  "insert_after": "totalvfd_use_default_vat_group_all",
+  "label": "Fiscalise Sales Invoices By Default",
+  "module": "Total VFD",
+  "default": "0",
+  "description": "When enabled, new Sales Invoices get Fiscalise with Total VFD checked automatically."
+ },
+ {
+  "dt": "POS Profile",
+  "fieldname": "totalvfd_section",
+  "fieldtype": "Section Break",
+  "insert_after": "print_format",
+  "label": "Total VFD",
+  "module": "Total VFD"
+ },
+ {
+  "dt": "POS Profile",
+  "fieldname": "totalvfd_fiscalise_by_default",
+  "fieldtype": "Check",
+  "insert_after": "totalvfd_section",
+  "label": "Fiscalise POS Invoices By Default",
+  "module": "Total VFD",
+  "default": "0",
+  "description": "When enabled, new POS Invoices from this profile are sent to Total VFD on submit."
+ },
+ {
+  "dt": "POS Profile",
+  "fieldname": "totalvfd_use_fiscal_print_format",
+  "fieldtype": "Check",
+  "insert_after": "totalvfd_fiscalise_by_default",
+  "label": "Use Total VFD Receipt Print Format",
+  "module": "Total VFD",
+  "default": "1",
+  "description": "Sets Print Format to POS Invoice - Total VFD (includes fiscal QR when fiscalised)."
+ },
+ {
+  "dt": "Item",
+  "fieldname": "totalvfd_vat_group",
+  "fieldtype": "Data",
+  "insert_after": "item_tax_section",
+  "label": "Total VFD VAT Group",
+  "module": "Total VFD"
+ },
+ {
+  "dt": "Item Tax Template",
+  "fieldname": "totalvfd_vat_group",
+  "fieldtype": "Data",
+  "insert_after": "title",
+  "label": "Total VFD VAT Group",
+  "module": "Total VFD",
+  "description": "Manual VAT mapping: used before Item VAT group when fiscalising."
+ },
+ {
+  "dt": "Sales Invoice",
+  "fieldname": "totalvfd_tab",
+  "fieldtype": "Tab Break",
+  "insert_after": "remarks",
+  "label": "Fiscal Information",
+  "module": "Total VFD"
+ },
+ {
+  "dt": "Sales Invoice",
+  "fieldname": "totalvfd_section",
+  "fieldtype": "Section Break",
+  "insert_after": "totalvfd_tab",
+  "label": "Total VFD",
+  "module": "Total VFD"
+ },
+ {
+  "dt": "Sales Invoice",
+  "fieldname": "totalvfd_fiscalise",
+  "fieldtype": "Check",
+  "insert_after": "totalvfd_section",
+  "label": "Fiscalise with Total VFD",
+  "module": "Total VFD",
+  "default": "0"
+ },
+ {
+  "dt": "Sales Invoice",
+  "fieldname": "totalvfd_fiscal_status",
+  "fieldtype": "Select",
+  "insert_after": "totalvfd_fiscalise",
+  "label": "Fiscal Status",
+  "module": "Total VFD",
+  "options": "Pending\nSuccess\nFailed",
+  "read_only": 1,
+  "default": "Pending"
+ },
+ {
+  "dt": "Sales Invoice",
+  "fieldname": "totalvfd_rctvnum",
+  "fieldtype": "Data",
+  "insert_after": "totalvfd_fiscal_status",
+  "label": "Fiscal Receipt Number",
+  "module": "Total VFD",
+  "read_only": 1
+ },
+ {
+  "dt": "Sales Invoice",
+  "fieldname": "totalvfd_verification_link",
+  "fieldtype": "Data",
+  "insert_after": "totalvfd_rctvnum",
+  "label": "Verification Link",
+  "module": "Total VFD",
+  "read_only": 1
+ },
+ {
+  "dt": "Sales Invoice",
+  "fieldname": "totalvfd_local_time",
+  "fieldtype": "Data",
+  "insert_after": "totalvfd_verification_link",
+  "label": "Fiscal Date & Time",
+  "module": "Total VFD",
+  "read_only": 1
+ },
+ {
+  "dt": "Sales Invoice",
+  "fieldname": "totalvfd_rctnum",
+  "fieldtype": "Data",
+  "insert_after": "totalvfd_local_time",
+  "label": "RCT Number",
+  "module": "Total VFD",
+  "read_only": 1,
+  "hidden": 1
+ },
+ {
+  "dt": "Sales Invoice",
+  "fieldname": "totalvfd_gc",
+  "fieldtype": "Data",
+  "insert_after": "totalvfd_rctnum",
+  "label": "GC Number",
+  "module": "Total VFD",
+  "read_only": 1,
+  "hidden": 1
+ },
+ {
+  "dt": "Sales Invoice",
+  "fieldname": "totalvfd_z_number",
+  "fieldtype": "Data",
+  "insert_after": "totalvfd_gc",
+  "label": "Z Number",
+  "module": "Total VFD",
+  "read_only": 1,
+  "hidden": 1
+ },
+ {
+  "dt": "Sales Invoice",
+  "fieldname": "totalvfd_sent",
+  "fieldtype": "Check",
+  "insert_after": "totalvfd_local_time",
+  "label": "Sent to Total VFD",
+  "module": "Total VFD",
+  "read_only": 1,
+  "hidden": 1
+ },
+ {
+  "dt": "Sales Invoice",
+  "fieldname": "totalvfd_error_message",
+  "fieldtype": "Small Text",
+  "insert_after": "totalvfd_sent",
+  "label": "Fiscal Error",
+  "module": "Total VFD",
+  "read_only": 1
+ },
+ {
+  "dt": "Sales Invoice",
+  "fieldname": "totalvfd_api_message",
+  "fieldtype": "Small Text",
+  "insert_after": "totalvfd_error_message",
+  "label": "API Notice",
+  "module": "Total VFD",
+  "read_only": 1
+ },
+ {
+  "dt": "Sales Invoice",
+  "fieldname": "totalvfd_retry_count",
+  "fieldtype": "Int",
+  "insert_after": "totalvfd_error_message",
+  "label": "Retry Count",
+  "module": "Total VFD",
+  "read_only": 1,
+  "hidden": 1
+ },
+ {
+  "dt": "Sales Invoice",
+  "fieldname": "totalvfd_payload",
+  "fieldtype": "Code",
+  "insert_after": "totalvfd_retry_count",
+  "label": "Request Payload",
+  "module": "Total VFD",
+  "options": "JSON",
+  "read_only": 1,
+  "hidden": 1
+ },
+ {
+  "dt": "Sales Invoice",
+  "fieldname": "totalvfd_response",
+  "fieldtype": "Code",
+  "insert_after": "totalvfd_payload",
+  "label": "API Response",
+  "module": "Total VFD",
+  "options": "JSON",
+  "read_only": 1,
+  "hidden": 1
+ },
+ {
+  "dt": "Sales Invoice",
+  "fieldname": "totalvfd_qr_code",
+  "fieldtype": "Attach Image",
+  "insert_after": "totalvfd_response",
+  "label": "QR Code",
+  "module": "Total VFD",
+  "read_only": 1
+ },
+ {
+  "dt": "POS Invoice",
+  "fieldname": "totalvfd_tab",
+  "fieldtype": "Tab Break",
+  "insert_after": "remarks",
+  "label": "Fiscal Information",
+  "module": "Total VFD"
+ },
+ {
+  "dt": "POS Invoice",
+  "fieldname": "totalvfd_section",
+  "fieldtype": "Section Break",
+  "insert_after": "totalvfd_tab",
+  "label": "Total VFD",
+  "module": "Total VFD"
+ },
+ {
+  "dt": "POS Invoice",
+  "fieldname": "totalvfd_fiscalise",
+  "fieldtype": "Check",
+  "insert_after": "totalvfd_section",
+  "label": "Fiscalise with Total VFD",
+  "module": "Total VFD",
+  "default": "0"
+ },
+ {
+  "dt": "POS Invoice",
+  "fieldname": "totalvfd_fiscal_status",
+  "fieldtype": "Select",
+  "insert_after": "totalvfd_fiscalise",
+  "label": "Fiscal Status",
+  "module": "Total VFD",
+  "options": "Pending\nSuccess\nFailed",
+  "read_only": 1,
+  "default": "Pending"
+ },
+ {
+  "dt": "POS Invoice",
+  "fieldname": "totalvfd_rctvnum",
+  "fieldtype": "Data",
+  "insert_after": "totalvfd_fiscal_status",
+  "label": "Fiscal Receipt Number",
+  "module": "Total VFD",
+  "read_only": 1
+ },
+ {
+  "dt": "POS Invoice",
+  "fieldname": "totalvfd_verification_link",
+  "fieldtype": "Data",
+  "insert_after": "totalvfd_rctvnum",
+  "label": "Verification Link",
+  "module": "Total VFD",
+  "read_only": 1
+ },
+ {
+  "dt": "POS Invoice",
+  "fieldname": "totalvfd_local_time",
+  "fieldtype": "Data",
+  "insert_after": "totalvfd_verification_link",
+  "label": "Fiscal Date & Time",
+  "module": "Total VFD",
+  "read_only": 1
+ },
+ {
+  "dt": "POS Invoice",
+  "fieldname": "totalvfd_rctnum",
+  "fieldtype": "Data",
+  "insert_after": "totalvfd_local_time",
+  "label": "RCT Number",
+  "module": "Total VFD",
+  "read_only": 1,
+  "hidden": 1
+ },
+ {
+  "dt": "POS Invoice",
+  "fieldname": "totalvfd_gc",
+  "fieldtype": "Data",
+  "insert_after": "totalvfd_rctnum",
+  "label": "GC Number",
+  "module": "Total VFD",
+  "read_only": 1,
+  "hidden": 1
+ },
+ {
+  "dt": "POS Invoice",
+  "fieldname": "totalvfd_z_number",
+  "fieldtype": "Data",
+  "insert_after": "totalvfd_gc",
+  "label": "Z Number",
+  "module": "Total VFD",
+  "read_only": 1,
+  "hidden": 1
+ },
+ {
+  "dt": "POS Invoice",
+  "fieldname": "totalvfd_error_message",
+  "fieldtype": "Small Text",
+  "insert_after": "totalvfd_local_time",
+  "label": "Fiscal Error",
+  "module": "Total VFD",
+  "read_only": 1
+ },
+ {
+  "dt": "POS Invoice",
+  "fieldname": "totalvfd_api_message",
+  "fieldtype": "Small Text",
+  "insert_after": "totalvfd_error_message",
+  "label": "API Notice",
+  "module": "Total VFD",
+  "read_only": 1
+ },
+ {
+  "dt": "POS Invoice",
+  "fieldname": "totalvfd_sent",
+  "fieldtype": "Check",
+  "insert_after": "totalvfd_error_message",
+  "label": "Sent to Total VFD",
+  "module": "Total VFD",
+  "read_only": 1,
+  "hidden": 1
+ },
+ {
+  "dt": "POS Invoice",
+  "fieldname": "totalvfd_retry_count",
+  "fieldtype": "Int",
+  "insert_after": "totalvfd_sent",
+  "label": "Retry Count",
+  "module": "Total VFD",
+  "read_only": 1,
+  "hidden": 1
+ },
+ {
+  "dt": "POS Invoice",
+  "fieldname": "totalvfd_payload",
+  "fieldtype": "Code",
+  "insert_after": "totalvfd_retry_count",
+  "label": "Request Payload",
+  "module": "Total VFD",
+  "options": "JSON",
+  "read_only": 1,
+  "hidden": 1
+ },
+ {
+  "dt": "POS Invoice",
+  "fieldname": "totalvfd_response",
+  "fieldtype": "Code",
+  "insert_after": "totalvfd_payload",
+  "label": "API Response",
+  "module": "Total VFD",
+  "options": "JSON",
+  "read_only": 1,
+  "hidden": 1
+ },
+ {
+  "dt": "POS Invoice",
+  "fieldname": "totalvfd_qr_code",
+  "fieldtype": "Attach Image",
+  "insert_after": "totalvfd_response",
+  "label": "QR Code",
+  "module": "Total VFD",
+  "read_only": 1
+ }
+]

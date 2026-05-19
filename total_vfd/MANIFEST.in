@@ -1,0 +1,9 @@
+include requirements.txt
+recursive-include total_vfd *.json
+recursive-include total_vfd *.md
+recursive-include total_vfd *.html
+recursive-include total_vfd *.css
+recursive-include total_vfd *.js
+recursive-include total_vfd *.py
+recursive-include total_vfd *.txt
+recursive-include total_vfd/print_formats *.html

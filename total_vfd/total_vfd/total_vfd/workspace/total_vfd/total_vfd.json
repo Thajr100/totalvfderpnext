@@ -1,0 +1,105 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"hdr\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Total VFD</b></span>\",\"col\":12}},{\"id\":\"set\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Getting Started\",\"col\":4}},{\"id\":\"log\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Total VFD Fiscal Log\",\"col\":4}},{\"id\":\"que\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Total VFD Queue\",\"col\":4}}]",
+ "creation": "2026-05-18 00:00:00.000000",
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "money-coins-1",
+ "idx": 0,
+ "is_hidden": 0,
+ "label": "Total VFD",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Configuration",
+   "link_count": 2,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Getting Started (setup guide)",
+   "link_count": 0,
+   "link_to": "Total VFD Settings",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "License Activation Log",
+   "link_count": 0,
+   "link_to": "Total VFD License Activation Log",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Operations",
+   "link_count": 2,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Fiscal Logs",
+   "link_count": 0,
+   "link_to": "Total VFD Fiscal Log",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Retry Queue",
+   "link_count": 0,
+   "link_to": "Total VFD Queue",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-05-18 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Total VFD",
+ "name": "Total VFD",
+ "owner": "Administrator",
+ "parent_page": "Accounting",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 20.0,
+ "shortcuts": [
+  {
+   "color": "Blue",
+   "doc_view": "",
+   "label": "Getting Started",
+   "link_to": "Total VFD Settings",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Total VFD Fiscal Log",
+   "link_to": "Total VFD Fiscal Log",
+   "type": "DocType"
+  },
+  {
+   "color": "Orange",
+   "doc_view": "List",
+   "label": "Total VFD Queue",
+   "link_to": "Total VFD Queue",
+   "type": "DocType"
+  }
+ ],
+ "title": "Total VFD"
+}
