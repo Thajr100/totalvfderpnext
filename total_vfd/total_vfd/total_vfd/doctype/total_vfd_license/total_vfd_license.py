@@ -140,6 +140,7 @@ def is_default_company(company):
 
 @frappe.whitelist()
 def get_vendor_message(company=None):
+    frappe.only_for(("System Manager", "Total VFD Manager"))
     require_validation_server()
     company = resolve_company(company)
     lic = get_license_dict(company)
@@ -165,6 +166,7 @@ def get_vendor_message(company=None):
 
 @frappe.whitelist()
 def register_vendor_code(vendor_activation_code, company=None):
+    frappe.only_for(("System Manager", "Total VFD Manager"))
     if not vendor_activation_code or not str(vendor_activation_code).strip():
         frappe.throw(_("Paste the Vendor Activation Code from your vendor email."))
     company = resolve_company(company)
@@ -176,6 +178,7 @@ def register_vendor_code(vendor_activation_code, company=None):
 
 @frappe.whitelist()
 def activate_license(license_key, vendor_activation_code=None, renew=0, company=None):
+    frappe.only_for(("System Manager", "Total VFD Manager"))
     require_validation_server()
     company = resolve_company(company)
     lic = get_license_dict(company)

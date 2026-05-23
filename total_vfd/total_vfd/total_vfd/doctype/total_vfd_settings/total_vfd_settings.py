@@ -68,6 +68,7 @@ def test_validation_connection():
 @frappe.whitelist()
 def refresh_license_word(company=None):
     """Pull or refresh license word from validation server."""
+    frappe.only_for(("System Manager", "Total VFD Manager"))
     from total_vfd.total_vfd.doctype.total_vfd_license.total_vfd_license import assign_license_word
 
     company = resolve_company(company)
@@ -84,6 +85,7 @@ def refresh_license_word(company=None):
 @frappe.whitelist()
 def check_license_now(company=None):
     """Run license check against validation server (no fiscalise)."""
+    frappe.only_for(("System Manager", "Total VFD Manager"))
     from total_vfd.total_vfd.doctype.total_vfd_license.total_vfd_license import check_module_access
 
     company = resolve_company(company)

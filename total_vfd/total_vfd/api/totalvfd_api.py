@@ -9,7 +9,8 @@ _logger = logging.getLogger(__name__)
 
 SANDBOX_BASE_URL = "https://testapi.totalvfd.co.tz"
 PRODUCTION_BASE_URL = "https://api.totalvfd.co.tz"
-RECEIPT_ENDPOINT = "/receipt"
+SALES_ENDPOINT = "/sales"
+HTTP_CREATED = 201
 DEFAULT_TIMEOUT = 30
 HTTP_CONFLICT = 409
 
@@ -49,7 +50,13 @@ class TotalVfdApi:
 
     @property
     def endpoint(self):
-        return f"{self.base_url}{RECEIPT_ENDPOINT}"
+        return f"{self.base_url}{SALES_ENDPOINT}"
+
+    @staticmethod
+    def _is_success_status(status_code):
+        if status_code == HTTP_CREATED:
+            return True
+        return 200 <= status_code < 300
 
     def _build_headers(self):
         token = self._settings.get_password("totalvfd_bearer_token")
@@ -85,7 +92,7 @@ class TotalVfdApi:
         except (json.JSONDecodeError, ValueError):
             response_body = {"raw": response.text}
 
-        if response.ok:
+        if self._is_success_status(response.status_code):
             return self._build_result(headers, response.status_code, response_body)
 
         if response.status_code == HTTP_CONFLICT:

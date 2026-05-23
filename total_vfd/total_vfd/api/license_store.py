@@ -132,16 +132,13 @@ def save_license_dict(license_data: dict, company=None):
     )
 
     if is_default_company(company):
+        frappe.db.set_single_value("Total VFD Settings", "license_json", license_json)
         frappe.db.set_single_value(
             "Total VFD Settings",
-            {
-                "license_json": license_json,
-                "site_id": license_data.get("site_id") or get_site_id(company),
-            },
+            "site_id",
+            license_data.get("site_id") or get_site_id(company),
         )
         sync_license_singleton(license_data)
-
-    frappe.db.commit()
 
 
 def sync_license_singleton(license_data: dict):

@@ -230,7 +230,10 @@ def _mark_failed(doc, doctype, error_message, payload=None, log_values=None):
     if queue_payload:
         from total_vfd.total_vfd.doctype.total_vfd_queue.total_vfd_queue import enqueue
 
-        enqueue(doctype, doc.name, doc.company, queue_payload, error_message)
+        try:
+            enqueue(doctype, doc.name, doc.company, queue_payload, error_message)
+        except Exception:
+            _logger.exception("Could not enqueue Total VFD retry for %s %s", doctype, doc.name)
 
     log_vals = log_values or {}
     _create_log(
@@ -279,7 +282,10 @@ def _create_log(
 
 @frappe.whitelist()
 def retry_fiscalisation(doctype, name):
+    if doctype not in ("Sales Invoice", "POS Invoice"):
+        frappe.throw(_("Retry is only available for Sales Invoice and POS Invoice."))
     doc = frappe.get_doc(doctype, name)
+    doc.check_permission("submit")
     if not doc.get("totalvfd_fiscalise"):
         frappe.throw(_("Enable Fiscalise with Total VFD on this document first."))
     ok = _send_payload(doc, doctype, json.loads(doc.totalvfd_payload or "{}"), from_queue=True)
@@ -289,9 +295,6 @@ def retry_fiscalisation(doctype, name):
 
 
 def process_queue():
-    from total_vfd.total_vfd.doctype.total_vfd_license.total_vfd_license import is_license_active
     from total_vfd.total_vfd.doctype.total_vfd_queue.total_vfd_queue import process_pending_queue
 
-    if not is_license_active():
-        return
     process_pending_queue()

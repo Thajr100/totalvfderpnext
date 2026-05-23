@@ -1,3 +1,4 @@
+import json
 import logging
 import re
 
@@ -31,20 +32,25 @@ class PayloadBuilder:
             "serial": self.company.totalvfd_serial,
             "items": items,
             "customer": self._build_customer(doc.customer),
-            "payments": self._build_payments_from_items(items, doc.grand_total),
+            "payments": self._build_payments_from_items(
+                items,
+                doc.grand_total,
+                payment_type="invoice",
+            ),
         }
 
     def build_from_pos_invoice(self, doc):
         if doc.docstatus != 1:
             raise ValueError("POS Invoice must be submitted before fiscalisation.")
         items = self._build_pos_items(doc)
+        items = self._reconcile_items_to_document_total(items, doc.grand_total)
         ref = doc.pos_invoice or doc.name
         return {
             "referenceNumber": ref,
             "serial": self.company.totalvfd_serial,
             "items": items,
             "customer": self._build_customer(doc.customer),
-            "payments": self._build_payments_from_items(items, doc.grand_total),
+            "payments": self._build_pos_payments(doc, items),
         }
 
     def _build_sales_invoice_items(self, doc):
@@ -129,12 +135,25 @@ class PayloadBuilder:
         return abs(flt(row.amount))
 
     def _row_tax_rate(self, row, doc):
+        rates = self._row_tax_rates(row, doc)
+        return max(rates) if rates else 0.0
+
+    def _row_tax_rates(self, row, doc):
+        rates = []
         if flt(row.tax_rate):
-            return flt(row.tax_rate)
+            rates.append(flt(row.tax_rate))
+        item_tax_rate = getattr(row, "item_tax_rate", None) or row.get("item_tax_rate")
+        if item_tax_rate:
+            try:
+                parsed = json.loads(item_tax_rate) if isinstance(item_tax_rate, str) else item_tax_rate
+            except (TypeError, ValueError):
+                parsed = {}
+            if isinstance(parsed, dict):
+                rates.extend(flt(rate) for rate in parsed.values())
         for tax in doc.get("taxes") or []:
             if tax.charge_type == "On Net Total" and flt(tax.rate):
-                return flt(tax.rate)
-        return 0.0
+                rates.append(flt(tax.rate))
+        return rates
 
     def _product_reference(self, product, item_code):
         if product and product.get("item_code"):
@@ -148,11 +167,11 @@ class PayloadBuilder:
             return self._get_vat_group_manual(product, row, default)
         if self.company.get("totalvfd_use_default_vat_group_all"):
             return default
-        rate = self._row_tax_rate(row, doc)
-        if abs(rate - VAT_RATE_STANDARD) < RATE_TOLERANCE:
-            return VAT_GROUP_STANDARD
-        if abs(rate) < RATE_TOLERANCE:
-            return VAT_GROUP_ZERO
+        for rate in sorted(self._row_tax_rates(row, doc), reverse=True):
+            if abs(rate - VAT_RATE_STANDARD) < RATE_TOLERANCE:
+                return VAT_GROUP_STANDARD
+            if abs(rate) < RATE_TOLERANCE:
+                return VAT_GROUP_ZERO
         return default
 
     def _get_vat_group_manual(self, product, row, default):
@@ -200,13 +219,45 @@ class PayloadBuilder:
         return ID_TYPE_NONE, ""
 
     @staticmethod
+    def _format_payment_type(payment_type):
+        text = (payment_type or "invoice").strip()
+        if not text:
+            return "invoice"
+        return text[0].lower() + text[1:]
+
+    @staticmethod
     def _payment_amount_from_items(items):
         if not items:
             return 0.0
         return round(sum(item["price"] - item["discount"] for item in items), 2)
 
-    def _build_payments_from_items(self, items, document_total):
+    def _build_payments_from_items(self, items, document_total, payment_type="invoice"):
         amount = self._payment_amount_from_items(items)
         if not amount and document_total:
             amount = round(abs(flt(document_total)), 2)
-        return [{"type": "Invoice", "amount": amount}]
+        return [{"type": self._format_payment_type(payment_type), "amount": amount}]
+
+    def _reconcile_items_to_document_total(self, items, document_total):
+        if not items:
+            return items
+        items_total = self._payment_amount_from_items(items)
+        doc_total = round(abs(flt(document_total)), 2)
+        diff = round(doc_total - items_total, 2)
+        if abs(diff) >= 0.01:
+            items[-1]["price"] = round(items[-1]["price"] + diff, 2)
+        return items
+
+    def _build_pos_payments(self, doc, items):
+        amount = self._payment_amount_from_items(items)
+        if not amount and doc.grand_total:
+            amount = round(abs(flt(doc.grand_total)), 2)
+        payment_type = "cash"
+        payments = doc.get("payments") or []
+        if payments:
+            first_payment = payments[0]
+            payment_type = (
+                first_payment.get("mode_of_payment")
+                or first_payment.get("payment_method")
+                or payment_type
+            )
+        return [{"type": self._format_payment_type(payment_type), "amount": amount}]

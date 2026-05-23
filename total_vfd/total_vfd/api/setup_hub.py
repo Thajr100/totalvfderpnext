@@ -186,6 +186,7 @@ def _pos_configured():
 
 @frappe.whitelist()
 def dismiss_setup_welcome():
+    frappe.only_for(("System Manager", "Total VFD Manager"))
     frappe.db.set_single_value("Total VFD Settings", "show_setup_welcome", 0)
     return {"ok": True}
 

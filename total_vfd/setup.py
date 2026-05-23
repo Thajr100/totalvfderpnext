@@ -5,7 +5,7 @@ with open("requirements.txt") as f:
 
 setup(
     name="total_vfd",
-    version="1.0.0",
+    version="1.0.3",
     description="Total VFD fiscalisation for ERPNext (Tanzania TRA)",
     author="Total VFD Integration",
     license="MIT",

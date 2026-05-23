@@ -1,6 +1,5 @@
 import importlib.util
 import logging
-import subprocess
 import sys
 
 import frappe
@@ -13,8 +12,6 @@ PYTHON_PACKAGES = {
     "requests": "requests",
 }
 
-PIP_INSTALL_TIMEOUT = 300
-
 
 def _missing_python_packages():
     missing = []
@@ -24,66 +21,17 @@ def _missing_python_packages():
     return sorted(set(missing))
 
 
-def _pip_install(packages):
-    if not packages:
-        return
-    base_cmd = [
-        sys.executable,
-        "-m",
-        "pip",
-        "install",
-        "--disable-pip-version-check",
-        "--no-warn-script-location",
-    ]
-    attempts = [base_cmd + packages, base_cmd + ["--user"] + packages]
-    last_error = None
-    for cmd in attempts:
-        try:
-            _logger.info("Total VFD: installing Python packages: %s", " ".join(packages))
-            subprocess.check_call(
-                cmd,
-                timeout=PIP_INSTALL_TIMEOUT,
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.PIPE,
-            )
-            return
-        except subprocess.CalledProcessError as exc:
-            last_error = exc.stderr.decode("utf-8", errors="replace") if exc.stderr else str(exc)
-        except (subprocess.TimeoutExpired, FileNotFoundError, OSError) as exc:
-            last_error = str(exc)
-    raise RuntimeError(last_error or "pip install failed")
-
-
 def before_install():
     missing = _missing_python_packages()
     if not missing:
         return
-    _logger.info(
-        "Total VFD: missing Python packages %s — attempting automatic install.",
-        ", ".join(missing),
+    packages = " ".join(missing)
+    frappe.throw(
+        "Total VFD is missing required Python packages.\n\n"
+        f"Missing: {packages}\n\n"
+        "Install the app requirements in the bench environment, then install this app again:\n"
+        f"    {sys.executable} -m pip install -r apps/total_vfd/requirements.txt"
     )
-    try:
-        _pip_install(missing)
-    except RuntimeError as exc:
-        packages = " ".join(missing)
-        frappe.throw(
-            "Total VFD could not install required Python packages automatically.\n\n"
-            f"Missing: {packages}\n\n"
-            f"Error: {exc}\n\n"
-            "Ask your administrator to run on the bench environment:\n"
-            f"    {sys.executable} -m pip install {packages}\n\n"
-            "Then install this app again."
-        )
-    importlib.invalidate_caches()
-    still_missing = _missing_python_packages()
-    if still_missing:
-        packages = " ".join(still_missing)
-        frappe.throw(
-            "Total VFD installed Python packages but they are still not available.\n\n"
-            f"Missing: {packages}\n\n"
-            f"Run: bench restart\n"
-            f"Then: {sys.executable} -m pip install {packages}"
-        )
 
 
 def _ensure_roles():

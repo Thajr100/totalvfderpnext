@@ -8,9 +8,6 @@ from total_vfd.api.license_constants import MAX_QUEUE_RETRIES
 
 
 def enqueue(document_type, document_name, company, payload, error_message):
-    from total_vfd.total_vfd.doctype.total_vfd_license.total_vfd_license import check_module_access
-
-    check_module_access(company)
     existing = frappe.db.get_value(
         "Total VFD Queue",
         {
